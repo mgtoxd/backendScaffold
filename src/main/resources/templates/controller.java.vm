@@ -1,0 +1,91 @@
+package ${package.Controller};
+
+import java.util.HashMap;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.v3.oas.annotations.Operation;;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import edu.imunet.equipmentmaterials.vo.ResultVo;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import ${package.Service}.I${entity}Service;
+import ${package.Entity}.${entity};
+import edu.imunet.equipmentmaterials.controller.BaseController;
+
+/**
+ * ${table.name}Controller
+ *
+ * @author ${author}
+ * @date ${date}
+ */
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RestController
+@RequestMapping("/${controllerMappingHyphen}")
+@Tag(name = "${table.name}CRUD")
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+private final ${table.serviceName} ${controllerMappingHyphen}Service;
+
+        /**
+         * 分页查询${table.name}列表
+         */
+        @PostMapping("/pageList/{page}/{size}")
+        @Operation(summary ="分页查询${table.name}列表")
+        public ResultVo list(@RequestBody HashMap<String, Object> bo,@PathVariable("page") int page,@PathVariable("size") int size){
+                Page<${entity}> pageCfg=new Page<>(page,size);
+                QueryWrapper<${entity}> queryWrapper=new QueryWrapper<>();
+                queryWrapper.allEq(bo);
+                Page<${entity}> list=${controllerMappingHyphen}Service.page(pageCfg,queryWrapper);
+                return makeSuccessResult(list);
+        }
+
+        /**
+         * 根据id获取${table.name}信息
+         */
+        @GetMapping("/getById")
+        @Operation(summary ="根据id获取${table.name}详细信息")
+        public ResultVo getById(@RequestParam("id") Long id){
+                return makeSuccessResult(${controllerMappingHyphen}Service.getById(id));
+        }
+
+        /**
+         * 根据id新增${table.name}
+         */
+        @PostMapping("/addById")
+        @Operation(summary ="根据id新增${table.name}")
+        public ResultVo addById(@RequestBody ${entity} bo){
+                return makeSuccessResult(${controllerMappingHyphen}Service.save(bo));
+        }
+
+
+        /**
+         * 根据id修改${table.name}
+         */
+        @PostMapping("/updateById")
+        @Operation(summary ="根据id修改${table.name}")
+        public ResultVo edit(@RequestBody ${entity} bo){
+                return makeSuccessResult(${controllerMappingHyphen}Service.updateById(bo));
+        }
+
+        /**
+         * 根据id新增或修改${table.name}
+         */
+        @PostMapping("/addOrUpdateById")
+        @Operation(summary ="根据id新增或修改${table.name}")
+        public ResultVo addOrUpdateById(@RequestBody ${entity} bo){
+                return makeSuccessResult(${controllerMappingHyphen}Service.saveOrUpdate(bo));
+        }
+        /**
+         * 根据id删除${table.name}
+         */
+        @GetMapping("/deleteById")
+        @Operation(summary ="根据id删除${table.name}")
+        public ResultVo remove(@RequestParam("id") Long id){
+                return makeSuccessResult(${controllerMappingHyphen}Service.removeById(id));
+        }
+}

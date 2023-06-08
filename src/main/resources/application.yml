@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: dynamic-datasource-demo
+  datasource:
+    dynamic:
+      primary: equipment #??????????????,?????master
+      strict: true #??????,??false???. ????????????????????,???????????.
+      datasource:
+        equipment:
+          driver-class-name: org.postgresql.Driver
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:postgresql://localhost:26257/equipment?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+          username: root
+        materials:
+          driver-class-name: org.postgresql.Driver
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:postgresql://localhost:26257/materials?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+          username: root
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml

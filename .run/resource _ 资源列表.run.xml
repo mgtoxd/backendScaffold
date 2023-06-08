@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="resource | 资源列表" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" nameIsGenerated="true" path="$PROJECT_DIR$/http/resource.http" requestIdentifier="资源列表" runType="运行单个请求">
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,45 @@
+version: '2.1'
+
+networks:
+  huannet:
+
+services:
+  cockroach01:
+    image: cockroachdb/cockroach:v23.1.2
+    container_name: cockroach01
+    restart: always
+    networks:
+      - huannet
+    command: start --insecure --join=cockroach01
+    ports:
+      - "26257:26257"
+      - "8081:8080"
+    volumes:
+      - ~/docker/data/cockroach-data01:/cockroach/cockroach-data
+  cockroach02:
+    image: cockroachdb/cockroach:v23.1.2
+    container_name: cockroach02
+    restart: always
+    networks:
+      - huannet
+    command: start --insecure --join=cockroach01
+    ports:
+      - "26258:26257"
+      - "8082:8080"
+    volumes:
+      - ~/docker/data/cockroach-data02:/cockroach/cockroach-data
+  cockroach03:
+    image: cockroachdb/cockroach:v23.1.2
+    container_name: cockroach03
+    restart: always
+    networks:
+      - huannet
+    command: start --insecure --join=cockroach01
+    ports:
+      - "26259:26257"
+      - "8083:8080"
+    volumes:
+      - ~/docker/data/cockroach-data03:/cockroach/cockroach-data
+
+
+# 执行完在1上 init --insecure
